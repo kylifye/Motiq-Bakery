@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motiq Bakery</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-logo">MOTIQ</div>
+    
+        <ul class="nav-menu">
+            <li><a href="#">Home</a></li>
+            <li><a href="#profil">About</a></li>
+            <li><a href="#produk">Products</a></li>
+            <li><a href="#kontak">Contact</a></li>
+        </ul>
+    
+        <div class="cart-icon" onclick="toggleCart()">
+            🛒 <span id="cart-count">0</span>
+        </div>
+    </nav>
+
+    <!-- HEADER -->
+    <header>
+        <img src="logo.jpeg" alt="Logo Bakery" class="logo">
+        <h1>Motiq Bakery</h1>
+        <p class="slogan">Fresh • Homemade • Full of Love</p>
+    </header>
+
+    <!-- PROFIL USAHA -->
+    <section class="profil" id="profil">
+        <h2>Tentang Kami</h2>
+        <p>
+            Motiq Bakery adalah usaha UMKM yang berdiri sejak tahun 2020.
+            Kami menyediakan berbagai roti, kue, dan quiche homemade dengan bahan berkualitas
+            dan tanpa pengawet.
+        </p>
+        <p><b>Tahun Berdiri:</b> 2020</p>
+        <p><b>Jenis Usaha:</b> Roti, Kue, Quiche</p>
+    </section>
+
+    <!-- PRODUK -->
+    <section class="produk" id="produk">
+        <h2>Produk Kami</h2>
+
+        <div class="produk-container">
+
+            <div class="card">
+                <img src="produk1.jpeg" alt="Japanese Milk Buns">
+                <h3>Japanese Milk Buns</h3>
+                <p>Roti lembut dengan isian coklat lumer.</p>
+                <p class="harga">Rp 20.000</p>
+                <button onclick="tambahKeKeranjang('Japanese Milk Buns', 20000)">Pesan</button>
+            </div>
+
+            <div class="card">
+                <img src="produk4.jpeg" alt="Banana Cake">
+                <h3>Banana Cake</h3>
+                <p>Banana cake yang moist dengan rasa pisang dan coklat yang lezat.</p>
+                <p class="harga">Rp 25.000</p>
+                <button onclick="tambahKeKeranjang('Banana Cake', 25000)">Pesan</button>
+            </div>
+
+            <div class="card">
+                <img src="produk2.jpeg" alt="Cheesy Tuna Quiche">
+                <h3>Cheesy Tuna Quiche</h3>
+                <p>Quiche gurih dengan isian tuna, dipadukan dengan saus creamy dan lelehan keju melimpah.</p>
+                <p class="harga">Rp 30.000</p>
+                <button onclick="tambahKeKeranjang('Cheesy Tuna Quiche', 30000)">Pesan</button>
+            </div>
+
+            <div class="card">
+                <img src="produk3.jpeg" alt="Cheesy Pepperoni Mushroom">
+                <h3>Cheesy Pepperoni Mushroom</h3>
+                <p>perpaduan pepperoni dan jamur segar dalam adonan quiche lembut yang creamy.</p>
+                <p class="harga">Rp 30.000</p>
+                <button onclick="tambahKeKeranjang('Cheesy Pepperoni Mushroom', 30000)">Pesan</button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="kontak"></footer>
+        <h3>Kontak Kami</h3>
+        <p>Alamat: Jl. Yayasan No. 1, Indonesia</p>
+        <p>WhatsApp: +62 811 183 464</p>
+        <p>© 2026 Motiq Bakery</p>
+        <p>Dibuat oleh: Kyara Alifia</p>
+    </footer>
+    <script>
+        let cart = [];
+        let total = 0;
+        
+        function tambahKeKeranjang(nama, harga){
+            cart.push({nama, harga});
+            total += harga;
+        
+            updateCart();
+        }
+        
+        function updateCart(){
+            let list = document.getElementById("cart-items");
+            let totalText = document.getElementById("total");
+            let count = document.getElementById("cart-count");
+        
+            list.innerHTML = "";
+        
+            cart.forEach(item => {
+                let li = document.createElement("li");
+                li.textContent = item.nama + " - Rp " + item.harga;
+                list.appendChild(li);
+            });
+        
+            totalText.textContent = total;
+            count.textContent = cart.length;
+        }
+        
+        function toggleCart(){
+            document.getElementById("cart").classList.toggle("show-cart");
+        }
+        
+        function checkout(){
+            let pesan = "Halo, saya ingin memesan:%0A";
+            cart.forEach(item => {
+                pesan += "- " + item.nama + "%0A";
+            });
+            pesan += "Total: Rp " + total;
+        
+            window.open("https://wa.me/628111831464?text=" + pesan);
+        }
+        </script>
+</body>
+
+    </script>
+<div class="cart-popup" id="cart">
+    <h3>Keranjang Belanja</h3>
+    <ul id="cart-items"></ul>
+    <p>Total: Rp <span id="total">0</span></p>
+    <button onclick="checkout()">Checkout</button>
+</div>
+</html>
